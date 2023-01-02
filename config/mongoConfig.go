@@ -9,7 +9,7 @@ import (
 
 const dbURL = "mongodb://localhost:27017"
 
-func db() *mongo.Client {
+func MongoDB() *mongo.Client {
 	clientOptions := options.Client().ApplyURI(dbURL)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 

@@ -4,6 +4,7 @@ import "time"
 
 type User struct {
 	Username         string
+	Password         string
 	RegistrationDate time.Time
 }
 
