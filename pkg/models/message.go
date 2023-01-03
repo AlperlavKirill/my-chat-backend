@@ -3,14 +3,14 @@ package models
 import "time"
 
 type Message struct {
-	Id           int       `json:"id"`
-	Content      string    `json:"content"`
-	Author       string    `json:"author"` //username
-	CreationDate time.Time `json:"creation_date"`
+	Id           string    `json:"id" bson:"id"`
+	Content      string    `json:"content" bson:"content"`
+	Author       string    `json:"author" bson:"author"` //username
+	CreationDate time.Time `json:"creation_date" bson:"creation_date"`
 }
 
 type MessageRepository interface {
-	Create(content string, author string) (int, error)
-	GetById(id int) (*Message, error)
+	Create(content string, author string) (string, error)
+	GetById(id string) (*Message, error)
 	GetByAuthor(Author string) ([]*Message, error)
 }

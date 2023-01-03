@@ -11,6 +11,13 @@ type UserService struct {
 	mutex sync.Mutex
 }
 
+func NewUserService(db *sql.DB) *UserService {
+	return &UserService{
+		db:    db,
+		mutex: sync.Mutex{},
+	}
+}
+
 func (u *UserService) Register(username string, password string) (string, error) {
 	//TODO implement me
 	panic("implement me")

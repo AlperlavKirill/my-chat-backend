@@ -3,9 +3,9 @@ package models
 import "time"
 
 type User struct {
-	Username         string
-	Password         string
-	RegistrationDate time.Time
+	Username         string    `json:"username" bson:"username"`
+	Password         string    `json:"password" bson:"password"`
+	RegistrationDate time.Time `json:"registration_date" bson:"registration_date"`
 }
 
 type UserRepository interface {
