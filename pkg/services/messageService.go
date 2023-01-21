@@ -34,7 +34,7 @@ func (m *MessageService) Create(content string, author string) (string, error) {
 	defer cancel()
 
 	message := &models.Message{
-		Id:           session.RandomSeed(20),
+		Id:           session.RandomString(20),
 		Content:      content,
 		Author:       author,
 		CreationDate: time.Now(),

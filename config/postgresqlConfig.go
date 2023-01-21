@@ -12,13 +12,13 @@ const (
 	port     = 5432
 	user     = "postgres"
 	password = "root"
-	dbname   = "chat_backend"
+	dbname   = "postgres"
 )
 
 var connStr = fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 	host, port, user, password, dbname)
 
-func postgresDB() *sql.DB {
+func PostgresDB() *sql.DB {
 	db, err := sql.Open("postgres", connStr)
 
 	if err != nil {

@@ -4,11 +4,22 @@ import "time"
 
 type User struct {
 	Username         string    `json:"username" bson:"username"`
-	Password         string    `json:"password" bson:"password"`
+	FirstName        string    `json:"first_name" bson:"first_name"`
+	LastName         string    `json:"last_name" bson:"last_name"`
+	PasswordHash     string    `json:"password_hash" bson:"password_hash"`
+	PasswordSalt     string    `json:"password_salt" bson:"password_salt"`
 	RegistrationDate time.Time `json:"registration_date" bson:"registration_date"`
 }
 
+type UserPublicInfo struct {
+	Username         string
+	FirstName        string
+	LastName         string
+	RegistrationDate time.Time
+}
+
 type UserRepository interface {
-	Register(username string, password string) (string, error)
-	GetInfo(username string) *User
+	Register(username, firstName, lastName, password string) (string, error)
+	Login(username, password string) (string, error)
+	GetInfo(username string) (*UserPublicInfo, error)
 }

@@ -10,7 +10,7 @@ type Message struct {
 }
 
 type MessageRepository interface {
-	Create(content string, author string) (string, error)
+	Create(content, author string) (string, error)
 	GetById(id string) (*Message, error)
-	GetByAuthor(Author string) ([]*Message, error)
+	GetByAuthor(author string) ([]*Message, error)
 }
