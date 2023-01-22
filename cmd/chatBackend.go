@@ -6,6 +6,7 @@ import (
 	"ChatProgramming/pkg/handlers/test"
 	"ChatProgramming/pkg/services"
 	"ChatProgramming/pkg/socket"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"math/rand"
 	"net/http"
@@ -30,6 +31,11 @@ func main() {
 	}
 
 	r := gin.Default()
+
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowOrigins = []string{"http://localhost:3000"}
+	corsConfig.AllowCredentials = true
+	r.Use(cors.New(corsConfig))
 	r.POST("/message/create", messageHandler.CreateMessage)
 	r.GET("/message/findById/:id", messageHandler.GetMessageById)
 	r.GET("/message/findByUsername/:username", messageHandler.GetMessagesByAuthor)

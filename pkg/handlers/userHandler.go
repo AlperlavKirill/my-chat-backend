@@ -12,8 +12,8 @@ type UserHandler struct {
 
 func (u *UserHandler) Register(c *gin.Context) {
 	username := c.PostForm("username")
-	firstName := c.DefaultPostForm("firstName", "")
-	lastName := c.DefaultPostForm("lastName", "")
+	firstName := c.DefaultPostForm("firstname", "")
+	lastName := c.DefaultPostForm("lastname", "")
 	password := c.PostForm("password")
 
 	_, err := u.UserRepo.Register(username, firstName, lastName, password)
