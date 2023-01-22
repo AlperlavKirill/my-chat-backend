@@ -4,8 +4,8 @@ import "time"
 
 type User struct {
 	Username         string    `json:"username" bson:"username"`
-	FirstName        string    `json:"first_name" bson:"first_name"`
-	LastName         string    `json:"last_name" bson:"last_name"`
+	FirstName        string    `json:"firstname,omitempty" bson:"first_name"`
+	LastName         string    `json:"lastname,omitempty" bson:"last_name"`
 	PasswordHash     string    `json:"password_hash" bson:"password_hash"`
 	PasswordSalt     string    `json:"password_salt" bson:"password_salt"`
 	RegistrationDate time.Time `json:"registration_date" bson:"registration_date"`
