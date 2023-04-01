@@ -2,8 +2,9 @@ package handlers
 
 import (
 	"ChatProgramming/pkg/models"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type UserHandler struct {
