@@ -4,11 +4,12 @@ import (
 	"ChatProgramming/pkg/models"
 	"ChatProgramming/pkg/session"
 	"context"
+	"sync"
+	"time"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"sync"
-	"time"
 )
 
 type MessageService struct {
@@ -49,7 +50,7 @@ func (m *MessageService) GetById(id string) (*models.Message, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	filter := bson.D{{"id", id}}
+	filter := bson.D{{Key: "id", Value: id}}
 	opts := options.FindOne()
 	var result *models.Message
 	err := collection.FindOne(ctx, filter, opts).Decode(&result)
@@ -64,7 +65,7 @@ func (m *MessageService) GetByAuthor(author string) ([]*models.Message, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	filter := bson.D{{"author", author}}
+	filter := bson.D{{Key: "author", Value: author}}
 	opts := options.Find()
 	cursor, err := collection.Find(ctx, filter, opts)
 	if err != nil {

@@ -3,14 +3,16 @@ package main
 import (
 	"ChatProgramming/config"
 	"ChatProgramming/pkg/handlers"
-	"ChatProgramming/pkg/handlers/test"
 	"ChatProgramming/pkg/services"
 	"ChatProgramming/pkg/socket"
+	"log"
+	"math/rand"
+	"os"
+	"time"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"math/rand"
-	"net/http"
-	"time"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -48,19 +50,19 @@ func main() {
 		socket.WsHandler(wsClient, c.Writer, c.Request)
 	})
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
+	runServer(r)
+}
 
-	r.GET("/simple", test.SimpleHello)
-	r.GET("/parameter/:name", test.ParameterHello)
-	r.GET("/query", test.QueryHello)
-	r.POST("/body", test.PostBodyHello)
-
-	err := r.Run(":8080")
+func runServer(r *gin.Engine) {
+	err := godotenv.Load()
 	if err != nil {
-		//do nothing yet
+		log.Fatalf("Failed to load .env file: %v", err)
+	}
+
+	port := os.Getenv("PORT")
+
+	err = r.Run(":" + port)
+	if err != nil {
+		log.Fatalf("Failed to start server: %v", err)
 	}
 }

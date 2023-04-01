@@ -2,15 +2,16 @@ package config
 
 import (
 	"context"
+	"log"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
 )
 
-const dbURL = "mongodb://localhost:27017"
+const mongoDbURL = "mongodb://localhost:27017"
 
 func MongoDB() *mongo.Client {
-	clientOptions := options.Client().ApplyURI(dbURL)
+	clientOptions := options.Client().ApplyURI(mongoDbURL)
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
 	if err != nil {

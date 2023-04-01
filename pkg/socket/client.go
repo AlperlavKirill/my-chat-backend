@@ -2,9 +2,10 @@ package socket
 
 import (
 	"ChatProgramming/pkg/models"
-	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/websocket"
 )
 
 var wsUpgrader = websocket.Upgrader{
@@ -21,7 +22,7 @@ func (c *Client) processMessages() {
 	defer func(wsConn *websocket.Conn) {
 		err := wsConn.Close()
 		if err != nil {
-
+			log.Printf("Ошибка при закрытии соединения с клиентом: %v", err)
 		}
 	}(c.wsConn)
 	for {

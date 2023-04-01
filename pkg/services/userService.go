@@ -39,7 +39,7 @@ func (u *UserService) Register(username,
 	_, err := u.db.Exec(sqlStatement, username, firstName, lastName,
 		hashedPassword, salt, time.Now())
 	if err != nil {
-		log.Println(err)
+		log.Fatalf("Failed to save user info to db: %v", err)
 		return "", err
 	}
 	return username, nil
@@ -71,7 +71,7 @@ func (u *UserService) GetInfo(username string) (*models.UserPublicInfo, error) {
 	err := u.db.QueryRow(sqlStatement, username).Scan(
 		&userInfo.Username, &userInfo.FirstName, &userInfo.LastName, &userInfo.RegistrationDate)
 	if err != nil {
-		log.Println(err)
+		log.Fatalf("Failed to get user info by username %s: %v", username, err)
 		return nil, err
 	}
 	return &userInfo, nil
@@ -84,7 +84,7 @@ func (u *UserService) checkUserExists(username string) bool {
 		username,
 	).Scan(&userExists)
 	if err != nil {
-		log.Println(err)
+		log.Fatalf("Failed to check if user with username %s exists: %v", username, err)
 	}
 	return userExists
 }
@@ -96,7 +96,7 @@ func (u *UserService) getSaltForUser(username string) string {
 	`
 	err := u.db.QueryRow(sqlStatement, username).Scan(&passwordSalt)
 	if err != nil {
-		log.Println(err)
+		log.Fatalf("Failed to get password salt for user with username %s: %v", username, err)
 		return ""
 	}
 	return passwordSalt
@@ -110,7 +110,7 @@ func (u *UserService) getHashedPassword(username string) string {
 
 	err := u.db.QueryRow(sqlStatement, username).Scan(&passwordHash)
 	if err != nil {
-		log.Println(err)
+		log.Fatalf("Failed to get password hash for user with username %s: %v", username, err)
 		return ""
 	}
 	return passwordHash
